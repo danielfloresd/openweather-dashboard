@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <!-- Include jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Include jQuery UI -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <!-- Include jQuery UI CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <!-- Include Bootstrap CSS     -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>OpenWeather Dashboard</title>
+</head>
+
+<body class="bg-light">
+    <header class="bg-dark text-white text-center">
+        <h1>OpenWeather Dashboard</h1>
+    </header>
+    <main>
+        <div class="container row col-12">
+        <div class="col-md-4 col-sm-12">
+            <div class="header-content-inner">
+                <h3>Search for a City</h3>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Enter city name" aria-label="Enter city name"
+                        aria-describedby="button-addon2" id="city">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+                </div>
+            </div>
+            <div class="container">
+                <div class="history">
+                    <div class="list-group" id="history"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Add weather forecast -->
+        <div class="col-md-8 col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <span id="city-name"></span>
+                        <span id="date"></span>
+                        <img src="" alt="" id="icon">
+                    </h5>
+                    <p class="card-text" id="temp"></p>
+                    <p class="card-text" id="humidity"></p>
+                    <p class="card-text" id="wind-speed"></p>
+                    <p class="card-text" id="uv-index"></p>
+                </div>
+            </div>
+            <div class="">
+                <h3>5-Day Forecast</h3>
+                <table class="table table-striped table-bordered table-responsive">
+                    <thead>
+                        <tr id="table-header">
+                        </tr>
+                    </thead>
+                    <tbody id="forecast">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </div>
+    </main>
+    <footer>
+        <p>© 2021 OpenWeather</p>
+    </footer>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="app.js"></script>
+    <!-- Add script.js -->
+    <script src="script.js"></script>
+</body>
+
+</html>
