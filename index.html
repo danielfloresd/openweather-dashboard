@@ -16,55 +16,60 @@
     <!-- Include Bootstrap CSS     -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
-<!-- Add google place autocomplete to your form -->
-   
+    <!-- Add google place autocomplete to your form -->
+
     <script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJI1p10TuzIala94nhFWdfAZerjAW_Rwo&libraries=places&callback=initMap">
-    </script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJI1p10TuzIala94nhFWdfAZerjAW_Rwo&libraries=places&callback=initMap">
+        </script>
 
     <title>OpenWeather Dashboard</title>
 </head>
+
 <body class="bg-light">
-    <header class="bg-primary text-white text-center">
-        <h1>OpenWeather Dashboard</h1>
+    <header class="bg-gradient-primary text-center text-white">
+        <h1 class="p-2">OpenWeather Dashboard</h1>
     </header>
     <main>
         <div class="container row col-12">
-        <div class="col-md-4 col-sm-12">
-            <div class="header-content-inner">
-                <h3>Search for a City:</h3>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Enter city name" aria-label="Enter city name"
-                        aria-describedby="button-addon2" id="city-input">
-                    <button class="btn btn-primary" type="button" id="city-search">Search</button>
+            <div class="col-lg-2 col-sm-12">
+                <div class="header-content-inner">
+                    <h3>Search for a City:</h3>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Enter city name"
+                            aria-label="Enter city name" aria-describedby="button-addon2" id="city-input">
+                        <button class="btn btn-primary" type="button" id="city-search">Search</button>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="history">
+                        <div class="list-group" id="history"></div>
+                        <button class="btn btn-warning btn-lg btn-block" style="margin-top:1rem" type="button"
+                            id="clear-history">Clear History</button>
+                    </div>
+                    <div class="container">
+                        <!-- <button class="btn btn-warning btn-lg btn-block" type="button" id="clear-history">Clear History</button> -->
+                    </div>
                 </div>
             </div>
-            <div class="container">
-                <div class="history">
-                    <div class="list-group" id="history"></div>
+            <!-- Add weather forecast -->
+            <div class="col-md-10 col-sm-12">
+                <div class="card card-bordered border-primary col-lg-10 col-sm-12">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <span id="city-name"></span>
+                            <span id="date"></span>
+                            <img src="" alt="" id="icon">
+                        </h5>
+                        <p class="card-text" id="temp"></p>
+                        <p class="card-text" id="humidity"></p>
+                        <p class="card-text" id="wind-speed"></p>
+                        <p class="card-text" id="uv-index"></p>
+                    </div>
                 </div>
-                <div class="container col-4">
-                <button class="btn btn-warning" type="button" id="clear-history">Clear History</button>
-                </div>
-            </div>
-        </div>
-        <!-- Add weather forecast -->
-        <div class="col-md-8 col-sm-12">
-            <div class="card card-bordered border-primary">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <span id="city-name"></span>
-                        <span id="date"></span>
-                        <img src="" alt="" id="icon">
-                    </h5>
-                    <p class="card-text" id="temp"></p>
-                    <p class="card-text" id="humidity"></p>
-                    <p class="card-text" id="wind-speed"></p>
-                    <p class="card-text" id="uv-index"></p>
-                </div>
-            </div>
-            <div class="table-responsive border border-secondary col-10 col-sm-3">
                 <h3>5-Day Forecast</h3>
+                <div class="row" id="forecast-card"> </div>
+                <!-- <div class="table-responsive border border-secondary"> -->
+                <!-- <h3>5-Day Forecast</h3>
                 <table class="table table-striped table-bordered ">
                     <thead>
                         <tr id="table-header">
@@ -72,18 +77,17 @@
                     </thead>
                     <tbody id="forecast">
                     </tbody>
-                </table>
+                </table> -->
             </div>
-        </div>
         </div>
     </main>
     <footer>
-        <p>© 2021 OpenWeather</p>
+        <!-- <p>© 2021 OpenWeather</p> -->
     </footer>
 
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
     <script src="https://unpkg.com/vue"></script>
-    <script src="app.js"></script>
+    <!-- <script src="app.js"></script> -->
     <!-- Add script.js -->
     <script src="script.js"></script>
 </body>
