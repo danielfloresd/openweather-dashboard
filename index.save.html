@@ -24,13 +24,13 @@
 
 <body class="bg-light">
     <header class="bg-gradient-primary text-center text-white">
-        <h1 class="p-2">OpenWeather Dashboard</h1>
+        <h1>OpenWeather Dashboard</h1>
     </header>
-    <main class="p-0">
-        <div class="container row col-12 m-0">
+    <main>
+        <div class="container row col-12">
             <div class="col-lg-2 col-sm-12">
                 <div class="header-content-inner">
-                    <h5>Search for a City:</h5>
+                    <h3>Search for a City:</h3>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Enter city name"
                             aria-label="Enter city name" aria-describedby="button-addon2" id="city-input">
@@ -41,72 +41,61 @@
                         </button>
                     </div>
                 </div>
-                <div class="container">
-                    <div class="history">
-                        <div class="list-group" id="history" style="padding-bottom:0.5rem"></div>
-                        <button class="btn btn-link btn-block" id="clear-history">Clear History
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
+                <div class="container p-1">
+                    <!-- <div class="history"> -->
+                    <div class="list-group" id="history"></div>
+                </div>
+                <div class="container p-10">
+                    <button class="btn btn-warning btn-block" id="clear-history">
+                        <i class="fas fa-trash"></i>
+                    </button>
                 </div>
             </div>
             <!-- Add weather forecast -->
             <div class="col-md-10 col-sm-12">
-                <div class="">
-                    <div class="container row m-0">
-                        <div class="card-body border-primary col-lg-6 col-sm-12 m-1 p-1">
-                            <h4 class="card-title text-center">
-                                <span id="city-name"></span>
-                                <span id="date"></span>
-                                <img src="" alt="" id="icon">
-                            </h4>
-                            <ul class="list-unstyled text-center">
-                                <li id="temp"></li>
-                                <li id="humidity"></li>
-                                <li id="wind-speed"></li>
-                            </ul>
-                            <!-- <p id="uv-index"></p> -->
-                        </div>
-                        <div>
-                            <h4 class="text-center">Hourly</h4>
-                            <table class="table table-sm col-lg-6">
-                                <thead>
-                                    <tr id="table-header">
-                                    </tr>
-                                </thead>
-                                <tbody id="forecast">
-                                </tbody>
-                            </table>
-                        </div>
+                <div class="card card-bordered border-primary col-lg-10 col-sm-12">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <span id="city-name"></span>
+                            <span id="date"></span>
+                            <img src="" alt="" id="icon">
+                        </h5>
+                        <p class="card-text" id="temp"></p>
+                        <p class="card-text" id="humidity"></p>
+                        <p class="card-text" id="wind-speed"></p>
+                        <p class="card-text" id="uv-index"></p>
                     </div>
                 </div>
-                <div class="container col-12">
-                    <h3>5-Day Forecast</h3>
+                <div class="container row">
+                    <h3 class="col-4">5-Day Forecast</h3>
+                    <div class="col-6"></div>
+                    <select class="form-select">
+                        <option value="f" selected>°F</option>
+                        <option value="c">°C</option>
+                    </select>
                 </div>
-                <div class="col-lg-12 p-0 m-0 col-sm-12 row" id="forecast-card"> </div>
-                <!-- <div class="table-responsive border border-secondary"> -->
-                <!-- <table class="table table-striped table-bordered ">
-                    <thead>
-                        <tr id="table-header">
-                        </tr>
-                    </thead>
-                    <tbody id="forecast">
-                    </tbody>
-                </table> -->
-            </div>
-            <div class="col-12 align-items-center">
-                <a class="btn btn-link btn-block dropdown-toggle" data-toggle="collapse" href="#collapseExample"
-                    role="button" aria-expanded="true" aria-controls="collapseExample">
-                    OpenWeather Map
-                </a>
-                <div class="collapse history h-100" id="collapseExample">
-                    <iframe class="col-12" height="600px" id="mapI" allowfullscreen>
-                    </iframe>
-                </div>
+                <div class="row" id="forecast-card"> </div>
             </div>
         </div>
+        <!-- <button id="submit">Submit</button> -->
+        <div id="map-wrapper aling-center" style="position:relative">
+            <!-- <div id="map" style="position:absolute; top:0; left:0"></div> -->
+            <!-- <image id="mapW" style="position:absolute; top:0; left:0"></image> -->
+            <!-- <div id="map">
+            </div>
+            <div id="mapW">
+            </div> -->
+            <div id="openweathermap-widget-12"></div>
+        </div>
+        <iframe id="mapI"
+        width="900px"
+        height="900px"
+        allowfullscreen
+        >
+      </iframe>
     </main>
     <footer>
+
         <!-- <p>© 2021 OpenWeather</p> -->
     </footer>
 

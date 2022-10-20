@@ -2,8 +2,13 @@ h1 {
     background: linear-gradient(0.25turn,#002AFF,  #007bff);
 }
 
+.card-body-custom {
+    background: linear-gradient(0.25turn,#002AFF,  #007bff);
+}
+
+/* 
 .table-striped>tbody>tr:nth-child(odd)>td,
 .table-striped>tbody>tr:nth-child(odd)>th {
-    background-color: #b8daff
+    background-color: #007bff
     /* Choose your own color here */
-}
+} */
