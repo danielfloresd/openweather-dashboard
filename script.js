@@ -16,7 +16,7 @@ function loadHistory() {
     for (var i = 0; i < history.length; i++) {
         var city = history[i];
         var li = $("<button>");
-        li.addClass("btn btn-secondary btn-lg btn-block");
+        li.addClass("btn btn-secondary btn-block");
         li.attr("href", "#").text(city);
         // Add click event listener to the list item
         li.on("click", function () {
@@ -59,8 +59,12 @@ function requestCity(city) {
             setToday(city, jsonObject);
             var lat = jsonObject.coord.lat;
             var lon = jsonObject.coord.lon;
-            var forecastURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${APIkey}&units=imperial`;
+            var forecastURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${APIkey}&units=imperial`;
             requestForecast(city, forecastURL);
+            var z=10;
+            var mapURL = `https://openweathermap.org/weathermap?basemap=map&cities=true&layer=temperature&lat=${lat}&lon=${lon}&zoom=${z}`;
+            console.log(mapURL);
+            $("#mapI").attr("src", mapURL);
 
         });
 
@@ -95,11 +99,11 @@ function setToday(city, day) {
     // Set today's description
     // $("#description").text(day.weather[0].description);
     // Set today's temperature
-    $("#temp").text("Temp: " + day.main.temp + " °F");
+    $("#temp").text("Temp: " + Math.round(day.main.temp) + " °F");
     // Set today's humidity
     $("#humidity").text("Humidity: " + day.main.humidity + " %");
     // Set today's wind speed
-    $("#wind-speed").text("Wind: " + day.wind.speed + " mph");
+    $("#wind-speed").text("Wind: " + Math.round(day.wind.speed) + " mph");
     // Set today's UV index
     // $("#uv-index").text("UV: " + day.uvi + " %");
 }
@@ -127,7 +131,7 @@ function createForecastTable(forecast) {
             date: moment.unix(day.dt).format("MM/DD/YYYY"),
             icon: $("<img>").attr("src", "https://openweathermap.org/img/w/" + day.weather[0].icon + ".png"),
             temp: day.temp.day + " °F",
-            wind: day.wind_speed + " mph",
+            wind: Math.round(day.wind_speed) + " mph",
             humidity: day.humidity + " %"
         };
     });
@@ -161,6 +165,69 @@ function createForecastTable(forecast) {
     }
 }
 
+function createHourlyForecastTable(forecast) {
+    console.log(forecast);
+    // Iterate through the list of forecast days
+    // Get daily forecast from day 1 to day 5
+
+    // var daily = forecast.daily.slice(1, 6);
+    // Get hourly forecast for today
+    var hourly = forecast.hourly.slice(1, 6);
+
+    // Create table header
+    // $("#table-header").append($("<th>"));
+
+    for (var i = 0; i < hourly.length; i++) {
+        console.log("hourly", hourly[i]);
+        var hour = moment.unix(hourly[i].dt).format("h A");
+        $("#table-header")
+            .append($("<th>")
+                .text(hour));
+    }
+
+    // Map daily to a new array of objects that only contain the date and the icon code
+    var hourlyForecast = hourly.map(function (hour) {
+        return {
+            // weekday: moment.unix(day.dt).format("dddd"),
+            // hour: moment.unix(hour.dt).format("MM/DD/YYYY"),
+            temp: Math.round(hour.temp) + " °F",
+            icon: $("<img>").attr("src", "https://openweathermap.org/img/w/" + hour.weather[0].icon + ".png"),
+            // temp: Math.round(hour.temp) + " °F",
+            // wind: hour.wind_speed + " mph",
+            // humidity: hour.humidity + " %"
+        };
+    });
+
+
+    var rowObject = {
+        // weekday: "",
+        // hour: "Hour",
+        // icon: "",
+        temp: "",
+        icon: ""
+        // wind: "Wind",
+        // humidity: "Humidity"
+    }
+
+    // // Add the row object to the beginning of the array
+    // hourlyForecast.unshift(rowObject);
+
+    tForecast = transpose(hourlyForecast);
+
+    // Iterate through the list of forecast days
+    for (var i = 0; i < tForecast.length; i++) {
+        // Create table row using jQuery
+        var tr = $("<tr>");
+
+        for (var j = 0; j < tForecast[i].length; j++) {
+            var td = $("<td>");
+            td.append(tForecast[i][j]);
+            tr.append(td);
+        }
+        $("#forecast").append(tr);
+    }
+}
+
 function createForecastCards(forecast) {
     // Iterate through the list of forecast days
     // Get daily forecast from day 1 to day 5
@@ -170,19 +237,28 @@ function createForecastCards(forecast) {
 
         var time = moment.unix(daily[i].dt).format("dddd");
         var icon = "https://openweathermap.org/img/w/" + daily[i].weather[0].icon + ".png";
-        var temp = daily[i].temp.day + " °F";
-        var wind = daily[i].wind_speed + " mph";
+        var temp = Math.round(daily[i].temp.day) + " °F";
+        var wind = Math.round(daily[i].wind_speed) + " mph";
         var humidity = daily[i].humidity + " %";
 
-        var grid = $("<div>").addClass("col-lg-2 col-sm-12");
-        var card = $("<div>").addClass("card bg-primary text-white");
-        var cardBody = $("<div>").addClass("card-body");
-        var cardTitle = $("<h5>").addClass("card-title").text(time);
-        var cardIcon = $("<img>").attr("src", icon);
-        var cardTemp = $("<p>").addClass("card-text").text("Temp: " + temp);
-        var cardWind = $("<p>").addClass("card-text").text("Wind: " + wind);
-        var cardHumidity = $("<p>").addClass("card-text").text("Humidity: " + humidity);
-        cardBody.append(cardTitle, cardIcon, cardTemp, cardWind, cardHumidity);
+        var grid = $("<div>").addClass("col-lg-2 col-sm-12 m-1");
+        var card = $("<div>").addClass("card text-white");
+        var cardBody = $("<div>").addClass("card-body bg-primary row");
+        // var cardTitleDiv = $("<div>").addClass("row col-6");
+        var cardTitleDiv = $("<ul>").addClass("list-group list-unstyled col-6 col-lg-12");
+        var cardTitle = $("<li>").append($("<h5>").addClass("card-title").text(time));
+
+        cardTitleDiv.append(cardTitle);
+        
+        var cardList = $("<ul>").addClass("list-group list-unstyled");
+        var cardIcon = $("<li>").append($("<img>").attr("src", icon));
+        var cardTemp = $("<li>").addClass("card-text").text("Temp: " + temp);
+        var cardWind = $("<li>").addClass("card-text").text("Wind: " + wind);
+        var cardHumidity = $("<li>").addClass("card-text").text("Humidity: " + humidity);
+        
+        cardTitleDiv.append(cardIcon);
+        cardList.append(cardTemp, cardWind, cardHumidity);
+        cardBody.append(cardTitleDiv, cardList);
         card.append(cardBody);
         grid.append(card);
         $("#forecast-card").append(grid);
@@ -199,7 +275,7 @@ function requestForecast(city, forecastURL) {
         })
         .then(function (jsonObject) {
             setCity(city);
-            // createForecastTable(jsonObject);
+            createHourlyForecastTable(jsonObject);
             createForecastCards(jsonObject);
         }
         );
@@ -218,10 +294,57 @@ function transpose(a) {
 $(document).ready(function () {
     initialize();
     loadHistory();
+    initDashboard();
     // Add click event listener to clear history button
     addButtonListener();
 });
 
+
+
+function initDashboard() {
+
+    // Set today's date
+    $("#date").text("(" + moment().format("MM/DD/YYYY") + ")");
+    // Set today's icon
+    //$("#icon").attr("src", `https://openweathermap.org/img/w/${day.weather[0].icon}.png`);
+    // Set today's description
+    // $("#description").text(day.weather[0].description);
+    // Set today's temperature
+    $("#temp").text("Temp: °F");
+    // Set today's humidity
+    $("#humidity").text("Humidity: %");
+    // Set today's wind speed
+    $("#wind-speed").text("Wind: MPH");
+    // Set today's UV index
+    // $("#uv-index").text("UV: %");
+
+    for (var i = 0; i < 5; i++) {
+
+        var day = moment().add(i + 1, 'days');
+
+        var wday = day.format("dddd");
+        var date = day.format("MM/DD/YYYY");
+        // var icon = "https://openweathermap.org/img/w/" + daily[i].weather[0].icon + ".png";
+        var temp = " °F";
+        var wind = " MPH";
+        var humidity = " %";
+
+        var grid = $("<div>").addClass("col-lg-2 col-sm-12");
+        var card = $("<div>").addClass("card bg-primary text-white");
+        var cardBody = $("<div>").addClass("card-body card-body-custom");
+        var cardTitle = $("<h5>").addClass("card-title").text(wday);
+        var cardDate = $("<h6>").addClass("date").text(date);
+        var cardIcon = $("<img>"); //.attr("src", icon);
+        var cardTemp = $("<p>").addClass("card-text").text("Temp: " + temp);
+        var cardWind = $("<p>").addClass("card-text").text("Wind: " + wind);
+        var cardHumidity = $("<p>").addClass("card-text").text("Humidity: " + humidity);
+        cardBody.append(cardTitle, cardDate, cardIcon, cardTemp, cardWind, cardHumidity);
+        card.append(cardBody);
+        grid.append(card);
+        $("#forecast-card").append(grid);
+
+    }
+}
 
 function initialize() {
     var input = document.getElementById('city-input');
