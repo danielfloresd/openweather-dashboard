@@ -347,10 +347,10 @@ function initDashboard() {
 }
 
 function initialize() {
-    var input = document.getElementById('city-input');
-    var options = {
-        types: ['(cities)'],
-        componentRestrictions: { country: "us" }
-    };
-    new google.maps.places.Autocomplete(input, options);
+    // var input = document.getElementById('city-input');
+    // var options = {
+    //     types: ['(cities)'],
+    //     componentRestrictions: { country: "us" }
+    // };
+    // new google.maps.places.Autocomplete(input, options);
 }
