@@ -15,9 +15,9 @@
     <link rel="stylesheet" href="style.css">
     <!-- Add google place autocomplete to your form -->
 
-    <script async
+    <!-- <script async
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJI1p10TuzIala94nhFWdfAZerjAW_Rwo&libraries=places&callback=initMap">
-        </script>
+        </script> -->
 
     <title>OpenWeather Dashboard</title>
 </head>
@@ -45,18 +45,12 @@
                     <div class="history">
                         <div class="list-group" id="history" style="padding:0.5rem"></div>
                         <!-- Add toggle switch for degrees celcius and fahrenheit -->
-                        <div class="row text-center align-items-center">
-                            <div class="btn-group btn-group-toggle text-center align-items-center" data-toggle="buttons">
-                                <label class="btn btn-link active">
-                                    <button class="btn btn-link active" type="radio" name="options" id="farenheit" autocomplete="off" checked>°F</button>
-                                </label>
-                                <label class="btn btn-link">
-                                    <button class="btn btn-link active" type="radio" name="options" id="celcius" autocomplete="off">°C</button>
-                                </label>
-                                <button class="btn btn-link btn-block" id="clear-history">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
+                        <div class="container btn-group align-items-center">
+                            <button class="btn btn-link" id="farenheit">°F</button>
+                            <button class="btn btn-link" id="celcius">°C</button>
+                            <button class="btn btn-link" id="clear-history">
+                                <i class="fas fa-trash"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -106,14 +100,17 @@
                 </table> -->
             </div>
             <div class="col-12 align-items-center">
-                <a class="btn btn-link btn-block dropdown-toggle" data-toggle="collapse" href="#collapseExample"
+                <button class="btn btn-link btn-block" id="openweathermap">
+                    OpenWeather Map
+                </button>
+                <!-- <a class="btn btn-link btn-block dropdown-toggle" data-toggle="collapse" href="#collapseExample"
                     role="button" aria-expanded="true" aria-controls="collapseExample">
                     OpenWeather Map
-                </a>
-                <div class="collapse history h-100" id="collapseExample">
+                </a> -->
+                <!-- <div class="collapse history h-100" id="collapseExample">
                     <iframe class="col-12" height="900px" id="mapI" allowfullscreen>
                     </iframe>
-                </div>
+                </div> -->
             </div>
         </div>
     </main>
