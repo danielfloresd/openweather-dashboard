@@ -3,6 +3,7 @@ var APIkey = "923d9e379d8c5e5c3deb64d1aca43984";
 APIkey = "38a07275b84946c812dcb08c2e4bd539";
 var units = "imperial";
 var currentCity = "Tucson";
+var mapURL = "https://openweathermap.org/wathermap";
 
 
 
@@ -62,6 +63,11 @@ function addButtonListener() {
         units = "imperial";
         requestCity(currentCity);
     });
+
+    $("#openweathermap").on("click", function () {
+        window.open(mapURL);
+    });
+
 }
 function requestCity(city) {
     var requestURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIkey}&units=${units}`;
@@ -84,9 +90,9 @@ function requestCity(city) {
             var forecastURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${APIkey}&units=${units}`;
             requestForecast(city, forecastURL);
             var z=10;
-            var mapURL = `https://openweathermap.org/weathermap?basemap=map&cities=true&layer=temperature&lat=${lat}&lon=${lon}&zoom=${z}`;
-            console.log(mapURL);
-            $("#mapI").attr("src", mapURL);
+            mapURL = `https://openweathermap.org/weathermap?basemap=map&cities=true&layer=temperature&lat=${lat}&lon=${lon}&zoom=${z}`;
+            // console.log(mapURL);
+            // $("#mapI").attr("src", mapURL);
 
         });
 
@@ -189,7 +195,7 @@ function createForecastTable(forecast) {
 }
 
 function createHourlyForecastTable(forecast) {
-    console.log(forecast);
+    // console.log(forecast);
     // Iterate through the list of forecast days
     // Get daily forecast from day 1 to day 5
 
@@ -201,7 +207,7 @@ function createHourlyForecastTable(forecast) {
     // $("#table-header").append($("<th>"));
 
     for (var i = 0; i < hourly.length; i++) {
-        console.log("hourly", hourly[i]);
+        // console.log("hourly", hourly[i]);
         var hour = moment.unix(hourly[i].dt).format("h A");
         $("#table-header")
             .append($("<th>")
