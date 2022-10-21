@@ -1,6 +1,8 @@
 // Create request url for openweathermap.org
 var APIkey = "923d9e379d8c5e5c3deb64d1aca43984";
 APIkey = "38a07275b84946c812dcb08c2e4bd539";
+var units = "imperial";
+var currentCity = "Tucson";
 
 
 
@@ -31,9 +33,9 @@ function addButtonListener() {
     $("#city-search").on("click", function (event) {
         event.preventDefault();
         var cityState = $("#city-input").val();
-        var city = cityState.split(",")[0];
+        currentCity = cityState.split(",")[0];
         $("#city-input").val("");
-        requestCity(city);
+        requestCity(currentCity);
     });
 
     // Add keyboard enter event listener on city input
@@ -48,9 +50,21 @@ function addButtonListener() {
         localStorage.clear();
         loadHistory();
     });
+
+    // Add event listener for celcius button
+    $("#celcius").on("click", function () {
+        units = "metric";
+        requestCity(currentCity);
+    });
+
+    // Add event listener for farenheit button
+    $("#farenheit").on("click", function () {
+        units = "imperial";
+        requestCity(currentCity);
+    });
 }
 function requestCity(city) {
-    var requestURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIkey}&units=imperial`;
+    var requestURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIkey}&units=${units}`;
 
     fetch(requestURL)
         .then(function (response) {
@@ -67,7 +81,7 @@ function requestCity(city) {
             setToday(city, jsonObject);
             var lat = jsonObject.coord.lat;
             var lon = jsonObject.coord.lon;
-            var forecastURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${APIkey}&units=imperial`;
+            var forecastURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${APIkey}&units=${units}`;
             requestForecast(city, forecastURL);
             var z=10;
             var mapURL = `https://openweathermap.org/weathermap?basemap=map&cities=true&layer=temperature&lat=${lat}&lon=${lon}&zoom=${z}`;
@@ -107,7 +121,8 @@ function setToday(city, day) {
     // Set today's description
     // $("#description").text(day.weather[0].description);
     // Set today's temperature
-    $("#temp").text("Temp: " + Math.round(day.main.temp) + " °F");
+    var unit = units == "metric" ? "C" : "F";
+    $("#temp").text("Temp: " + Math.round(day.main.temp) + " °" + unit);
     // Set today's humidity
     $("#humidity").text("Humidity: " + day.main.humidity + " %");
     // Set today's wind speed
@@ -138,7 +153,7 @@ function createForecastTable(forecast) {
             // weekday: moment.unix(day.dt).format("dddd"),
             date: moment.unix(day.dt).format("MM/DD/YYYY"),
             icon: $("<img>").attr("src", "https://openweathermap.org/img/w/" + day.weather[0].icon + ".png"),
-            temp: day.temp.day + " °F",
+            temp: day.temp.day +  (units == "metric" ? "C" : "F"),
             wind: Math.round(day.wind_speed) + " mph",
             humidity: day.humidity + " %"
         };
@@ -198,7 +213,7 @@ function createHourlyForecastTable(forecast) {
         return {
             // weekday: moment.unix(day.dt).format("dddd"),
             // hour: moment.unix(hour.dt).format("MM/DD/YYYY"),
-            temp: Math.round(hour.temp) + " °F",
+            temp: Math.round(hour.temp) + " °" + (units == "metric" ? "C" : "F"),
             icon: $("<img>").attr("src", "https://openweathermap.org/img/w/" + hour.weather[0].icon + ".png"),
             // temp: Math.round(hour.temp) + " °F",
             // wind: hour.wind_speed + " mph",
@@ -245,7 +260,8 @@ function createForecastCards(forecast) {
 
         var time = moment.unix(daily[i].dt).format("dddd");
         var icon = "https://openweathermap.org/img/w/" + daily[i].weather[0].icon + ".png";
-        var temp = Math.round(daily[i].temp.day) + " °F";
+        var unit = units == "metric" ? "C" : "F";
+        var temp = Math.round(daily[i].temp.day) + " °" + unit;
         var wind = Math.round(daily[i].wind_speed) + " mph";
         var humidity = daily[i].humidity + " %";
 
@@ -355,10 +371,10 @@ function initDashboard() {
 }
 
 function initialize() {
-    var input = document.getElementById('city-input');
-    var options = {
-        types: ['(cities)'],
-        componentRestrictions: { country: "us" }
-    };
-    new google.maps.places.Autocomplete(input, options);
+    // var input = document.getElementById('city-input');
+    // var options = {
+    //     types: ['(cities)'],
+    //     componentRestrictions: { country: "us" }
+    // };
+    // new google.maps.places.Autocomplete(input, options);
 }
