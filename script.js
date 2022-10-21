@@ -36,6 +36,14 @@ function addButtonListener() {
         requestCity(city);
     });
 
+    // Add keyboard enter event listener on city input
+    $("#city-input").on("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            $("#city-search").click();
+        }
+    });
+
     $("#clear-history").on("click", function () {
         localStorage.clear();
         loadHistory();
