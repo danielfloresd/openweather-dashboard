@@ -199,7 +199,7 @@ function createForecastCards(forecast) {
             .addClass("list-group list-unstyled col-6 col-lg-12");
         var cardTitle = $("<li>")
             .append($("<h3>")
-                .addClass("card-title")
+                .addClass("card-title font-weight-bold")
                 .text(time));
         var cardSubTitle = $("<li>")
             .append($("<p>"))
@@ -319,7 +319,7 @@ function initDashboard() {
             .addClass("list-group list-unstyled col-6 col-lg-12");
         var cardTitle = $("<li>")
             .append($("<h3>")
-                .addClass("card-title")
+                .addClass("card-title font-weight-bold")
                 .text(wday));
         var cardSubTitle = $("<li>")
             .append($("<p>")
