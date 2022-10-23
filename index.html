@@ -8,36 +8,28 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
-    <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" /> -->
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-    <!-- Add google place autocomplete to your form -->
-
-    <!-- <script async
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJI1p10TuzIala94nhFWdfAZerjAW_Rwo&libraries=places&callback=initMap">
-        </script> -->
-
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <title>OpenWeather Dashboard</title>
 </head>
 
 <body class="bg-light">
-    <header class="bg-gradient-primary text-center text-white">
+    <header class="bg-gradient-primary text-center text-white col-12">
         <h1 class="p-2">OpenWeather Dashboard</h1>
     </header>
-    <main class="p-0">
+    <main class="p-0" id="page-container">
         <div class="container row col-12 m-0">
             <div class="col-lg-2 col-sm-12">
                 <div class="header-content-inner">
-                    <h5>Search for a City:</h5>
+                    <h2>Search for a City:</h2>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Enter city name"
-                            aria-label="Enter city name" aria-describedby="button-addon2" id="city-input">
-                        <button class="btn btn-primary" type="button" id="city-search">
+                            aria-label="Enter city name" id="city-input">
+                        <button class="btn btn-primary" type="button" id="city-search" title="Search">
                             <!-- Add search icon -->
                             <i class="fas fa-search"></i>
-
                         </button>
                     </div>
                 </div>
@@ -46,9 +38,9 @@
                         <div class="list-group" id="history" style="padding:0.5rem"></div>
                         <!-- Add toggle switch for degrees celcius and fahrenheit -->
                         <div class="container btn-group align-items-center">
-                            <button class="btn btn-link" id="farenheit">°F</button>
-                            <button class="btn btn-link" id="celcius">°C</button>
-                            <button class="btn btn-link" id="clear-history">
+                            <button class="btn" id="farenheit">°F</button>
+                            <button class="btn" id="celcius">°C</button>
+                            <button class="btn" id="clear-history" title="Clear history">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
@@ -56,25 +48,27 @@
                 </div>
             </div>
             <!-- Add weather forecast -->
-            <div class="col-md-10 col-sm-12">
-                <div class="">
-                    <div class="container row m-0">
-                        <div class="card-body border-primary col-lg-6 col-sm-12 m-1 p-1">
-                            <h4 class="card-title text-center">
-                                <span id="city-name"></span>
-                                <span id="date"></span>
-                                <img src="" alt="" id="icon">
-                            </h4>
-                            <ul class="list-unstyled text-center">
-                                <li id="temp"></li>
-                                <li id="humidity"></li>
-                                <li id="wind-speed"></li>
-                            </ul>
-                            <!-- <p id="uv-index"></p> -->
+            <div class="col-lg-10 col-sm-12 bg-white">
+                <div class="card-deck">
+                    <div class="card">
+                        <h3 class="card-title text-center">
+                            <span id="city-name"></span>
+                            <span id="date"></span>
+                            <img src="" alt="" id="icon">
+                        </h3>
+                        <ul class="card-body list-unstyled text-center">
+                            <li id="temp"></li>
+                            <li id="humidity"></li>
+                            <li id="wind-speed"></li>
+                        </ul>
+                    </div>
+                    <div class="card text-center">
+                        <div class="card-title">
+                            <h3>Hourly</h3>
                         </div>
-                        <div>
-                            <h4 class="text-center">Hourly</h4>
-                            <table class="table table-sm table-resposive table-sm col-lg-6">
+                        <div class="card-body">
+                            <!-- <div class="card-deck" id="hourly-cards"></div> -->
+                            <table class="table table-sm">
                                 <thead>
                                     <tr id="table-header">
                                     </tr>
@@ -85,41 +79,24 @@
                         </div>
                     </div>
                 </div>
-                <div class="container col-12">
-                    <h3>5-Day Forecast</h3>
+                <div class="container col-10 p-1">
+                    <h4>5-Day Forecast</h4>
                 </div>
-                <div class="col-lg-12 p-0 m-0 col-sm-12 row" id="forecast-card"> </div>
-                <!-- <div class="table-responsive border border-secondary"> -->
-                <!-- <table class="table table-striped table-bordered ">
-                    <thead>
-                        <tr id="table-header">
-                        </tr>
-                    </thead>
-                    <tbody id="forecast">
-                    </tbody>
-                </table> -->
+                <div class="row card-deck" id="forecast-card">
+                </div>
             </div>
             <div class="col-12 align-items-center">
-                <button class="btn btn-link btn-block" id="openweathermap">
-                    OpenWeather Map
+                <button class="btn btn-block btn-link" id="openweathermap">
+                    Go to OpenWeatherMap
                 </button>
-                <!-- <a class="btn btn-link btn-block dropdown-toggle" data-toggle="collapse" href="#collapseExample"
-                    role="button" aria-expanded="true" aria-controls="collapseExample">
-                    OpenWeather Map
-                </a> -->
-                <!-- <div class="collapse history h-100" id="collapseExample">
-                    <iframe class="col-12" height="900px" id="mapI" allowfullscreen>
-                    </iframe>
-                </div> -->
             </div>
         </div>
     </main>
-    <footer>
-        <!-- <p>© 2021 OpenWeather</p> -->
-    </footer>
-
-    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
-    <!-- <script src="https://unpkg.com/vue.global.prod.js"></script> -->
+    <div class="footer-container text-center card-body-custom">
+        <h4>
+            <a class="text-white" href="mailto:daniel.flor3s.d@gmail.com">Made by Daniel Flores D &copy; 2022</a>
+        </h4>
+    </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -134,7 +111,7 @@
     <!-- Add link to moment.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <!-- <script src="./assets/js/script.js"></script> -->
-    <script src="script.js"></script>
+    <script src="./assets/scripts/script.js"></script>
 </body>
 
 </html>
