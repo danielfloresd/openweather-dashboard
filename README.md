@@ -15,7 +15,7 @@ This project aims to implement a weather forcast dashboard using the openweather
 The application is implemented using jQuery,Bootstrap, and the openweathermap.org weather API. The website also features a responsive desing.
 
 ## Installation
-Respository can be accessed at https://github.com/danielfloresd/openweather-dashboard/
+The repository can be accessed at https://github.com/danielfloresd/openweather-dashboard/
 
 ## Usage
 To view the website, please visit https://danielfloresd.github.io/openweather-dashboard/
