@@ -20,8 +20,10 @@ Respository can be accessed at https://github.com/danielfloresd/openweather-dash
 ## Usage
 To view the website, please visit https://danielfloresd.github.io/openweather-dashboard/
 
-<img src="./assets/images/website.PNG" width="300" />
-<img src="./assets/images/mobile.PNG" width="300" />
+<img src="./assets/images/website.PNG" width="500" />
+<br>
+<img src="./assets/images/mobile.jpeg" width="250" />
+<img src="./assets/images/mobile2.jpeg" width="250" />
 
 ## Credits
 
