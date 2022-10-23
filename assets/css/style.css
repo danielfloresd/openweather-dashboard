@@ -1,0 +1,24 @@
+/* Add gradient to header and cards */
+h1 {
+    background: linear-gradient(0.25turn,#002AFF,  #007bff);
+}
+
+#page-container {
+    position: relative;
+    min-height: 95vh;
+    padding: 0 0 0 0;
+}
+
+.card-body-custom {
+    background: linear-gradient(0.5turn,#002AFF,  #007bff);
+}
+
+/* Set footer sticky at the bottom of the page */
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;
+    text-align: center;
+    padding: 0.5rem;
+}
